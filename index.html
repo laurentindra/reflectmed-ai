@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medireflect AI · AI Refleksi Klinis Kedokteran</title>
+  <meta name="description" content="Medireflect AI - Refleksi yang bermakna, pertumbuhan yang nyata. Platform mobile refleksi klinis berbasis AI untuk mahasiswa kedokteran, koas, dan residen dengan siklus Gibbs 6 tahap, radar kompetensi, PDF resmi, dan integrasi e-portofolio.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons & html2pdf.js CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <link rel="stylesheet" href="css/mobile-simulator.css">
+</head>
+<body>
+
+  <!-- DESKTOP SIMULATOR CONTAINER -->
+  <div class="simulator-wrapper">
+    <!-- LEFT CONTROL & INFO SIDEBAR -->
+    <aside class="desktop-sidebar">
+      <div class="brand-badge">
+        <img src="assets/images/logo.png" alt="Medireflect AI Logo" class="brand-logo-mini">
+        <span>Medireflect AI</span>
+      </div>
+      <h2>Mobile App Preview</h2>
+      <p class="sidebar-desc">
+        Desain aplikasi mobile <strong>Medireflect AI</strong> telah disinkronkan 100% dengan UI/UX rancangan Anda di Figma/Untitled.zip: <strong>5 tab navigasi utama</strong>, palet gradien <em>deep teal</em>, formulir Gibbs 6-tahap, chatbot consult, radar kompetensi, dan ekspor PDF akademik.
+      </p>
+
+      <div class="meta-card">
+        <div class="meta-title"><i class="fa-solid fa-layer-group"></i> 5 Layar Utama Terintegrasi</div>
+        <ul class="meta-list">
+          <li><strong>1. Beranda:</strong> Sapaan stase, streak 7 hari, pengingat kasus, 4 kartu refleksi, &amp; bar kompetensi</li>
+          <li><strong>2. Refleksi:</strong> Formulir Gibbs 6 tahap <em>(Deskripsi s/d Aksi)</em> + 5 mood selector &amp; voice input</li>
+          <li><strong>3. AI Guide:</strong> Chatbot curhat klinis terenkripsi dengan AMEE Guide 44 &amp; sintesis PDF</li>
+          <li><strong>4. Progress:</strong> Tren kedalaman metakognitif (M1-M6), Radar Chart 6 kompetensi, &amp; tag cloud</li>
+          <li><strong>5. Profil:</strong> Data mahasiswa, autentikasi SSO kampus, privasi UU PDP, &amp; mode gelap</li>
+        </ul>
+      </div>
+
+      <div class="device-controls">
+        <div class="control-label">Tampilan Pratinjau:</div>
+        <div class="btn-group">
+          <button id="btn-view-mobile" class="control-btn active" onclick="switchDeviceView('mobile')">
+            <i class="fa-solid fa-mobile-screen"></i> Mobile Frame
+          </button>
+          <button id="btn-view-tablet" class="control-btn" onclick="switchDeviceView('tablet')">
+            <i class="fa-solid fa-tablet-screen-button"></i> Tablet / Penuh
+          </button>
+        </div>
+        <div style="margin-top:10px;">
+          <button class="control-btn secondary" onclick="openAuthModal('splash')" style="width:100%;">
+            <i class="fa-solid fa-play"></i> Buka Splash &amp; Onboarding
+          </button>
+        </div>
+        <div style="margin-top:8px;">
+          <button class="control-btn" onclick="openAiTrainingModal()" style="width:100%; background: linear-gradient(135deg, #0A5C67 0%, #138A96 100%); color: #fff; font-weight:700; border: none; box-shadow: 0 4px 14px rgba(19, 138, 150, 0.35);">
+            <i class="fa-solid fa-sliders"></i> Studio Pelatihan AI (Educator)
+          </button>
+        </div>
+      </div>
+
+      <div class="quick-help-card">
+        <div class="help-title"><i class="fa-solid fa-circle-check"></i> Status Sinkronisasi:</div>
+        <ol class="help-steps">
+          <li>Logo resmi <strong>Medireflect AI</strong> diterapkan di seluruh aplikasi.</li>
+          <li>Bottom Navigation Bar 5-Tab persis seperti <code>BottomNav.png</code>.</li>
+          <li>Radar Chart 6 Pilar Kompetensi klinis aktif pada tab <strong>Progress</strong>.</li>
+          <li>Ekspor <strong>PDF Resmi</strong> dan <strong>Salin 1-Klik e-Portofolio</strong> tetap tersedia di tab AI Guide &amp; Refleksi.</li>
+        </ol>
+      </div>
+
+      <div class="codebase-link-card">
+        <i class="fa-brands fa-flutter" style="color:#02569B; font-size: 24px;"></i>
+        <div>
+          <div style="font-weight:700; font-size:12px;">Flutter Codebase Sinkron</div>
+          <div style="font-size:11px; color:#64748b;">Source code di <code>lib/</code> terstruktur sesuai modul desain ini.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MOBILE DEVICE FRAME -->
+    <main class="phone-stage">
+      <div id="phone-frame" class="smartphone-frame">
+        <!-- Dynamic Island / Speaker Notch -->
+        <div class="phone-header-notch">
+          <div class="speaker"></div>
+          <div class="camera-lens"></div>
+        </div>
+
+        <!-- Phone Status Bar -->
+        <div class="phone-status-bar">
+          <span class="status-time" id="status-time">09:41</span>
+          <div class="status-icons">
+            <i class="fa-solid fa-signal"></i>
+            <i class="fa-solid fa-wifi"></i>
+            <i class="fa-solid fa-battery-full"></i>
+          </div>
+        </div>
+
+        <!-- PHONE SCREEN CONTENT (5 TABS + SUB-SCREENS) -->
+        <div class="phone-screen-content">
+          
+          <!-- ============================================ -->
+          <!-- TAB 1: BERANDA (DASHBOARD.png) -->
+          <!-- ============================================ -->
+          <section id="tab-beranda" class="mobile-screen active">
+            <!-- Header Bar -->
+            <div class="med-header-teal">
+              <div class="med-header-top">
+                <img src="assets/images/logo.png" alt="Medireflect Logo" class="appbar-brand-logo">
+                <button class="notif-btn" title="Notifikasi" onclick="showToast('Tidak ada notifikasi baru.')">
+                  <i class="fa-regular fa-bell"></i>
+                  <span class="notif-dot"></span>
+                </button>
+              </div>
+
+              <div class="header-greeting-block">
+                <div class="greeting-date" id="dash-date-text">Senin, 22 Juni 2026</div>
+                <h3 class="greeting-user" id="dash-user-name">Selamat Pagi, Laurent Indra Febrian</h3>
+                <div class="greeting-rotation" id="dash-rotation-text">Rotasi Interna — RSUD Dr. Soetomo</div>
+              </div>
+
+              <!-- Streak & Badges -->
+              <div class="med-badges-row">
+                <div class="streak-pill">
+                  <i class="fa-solid fa-fire"></i>
+                  <span>7 hari streak</span>
+                </div>
+                <div class="streak-pill">
+                  <i class="fa-solid fa-star"></i>
+                  <span>24 refleksi</span>
+                </div>
+                <div class="streak-pill">
+                  <i class="fa-solid fa-medal"></i>
+                  <span>Level 4</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scrollable Body -->
+            <div class="screen-scrollable" style="padding-top: 12px;">
+              <!-- Floating Reminder Card -->
+              <div class="med-reminder-card">
+                <div class="reminder-icon-box">
+                  <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="reminder-text">
+                  <strong>Pengingat Refleksi</strong>
+                  <p>Kasus hipertensi emergensi tadi — tulis sekarang sebelum terlupakan!</p>
+                </div>
+                <button class="btn-reminder-action" onclick="switchBottomTab('refleksi')">
+                  Mulai
+                </button>
+              </div>
+
+              <!-- Section: Mulai Refleksi (4 Grid Cards) -->
+              <div class="section-title-row">
+                <h4>Mulai Refleksi</h4>
+                <a href="javascript:void(0)" class="link-see-all" onclick="switchBottomTab('refleksi')">Lihat semua</a>
+              </div>
+
+              <div class="med-four-grid">
+                <div class="four-card blue" onclick="startReflectionWithCategory('Kasus hari ini')">
+                  <div class="card-icon-circle blue">
+                    <i class="fa-solid fa-stethoscope"></i>
+                  </div>
+                  <span>Kasus hari ini</span>
+                </div>
+                <div class="four-card cyan" onclick="startReflectionWithCategory('Momen emosional')">
+                  <div class="card-icon-circle cyan">
+                    <i class="fa-regular fa-heart"></i>
+                  </div>
+                  <span>Momen emosional</span>
+                </div>
+                <div class="four-card amber" onclick="startReflectionWithCategory('Belajar dari kesalahan')">
+                  <div class="card-icon-circle amber">
+                    <i class="fa-solid fa-book-open"></i>
+                  </div>
+                  <span>Belajar dari kesalahan</span>
+                </div>
+                <div class="four-card purple" onclick="startReflectionWithCategory('Kerja tim klinis')">
+                  <div class="card-icon-circle purple">
+                    <i class="fa-solid fa-user-group"></i>
+                  </div>
+                  <span>Kerja tim klinis</span>
+                </div>
+              </div>
+
+              <!-- Section: Perkembangan Kompetensi -->
+              <div class="section-title-row" style="margin-top:6px;">
+                <h4>Perkembangan Kompetensi</h4>
+                <a href="javascript:void(0)" class="link-see-all" onclick="switchBottomTab('progress')">Detail</a>
+              </div>
+
+              <div class="competency-progress-box">
+                <div class="comp-item">
+                  <div class="comp-label-row">
+                    <span>Clinical Reasoning</span>
+                    <strong>78%</strong>
+                  </div>
+                  <div class="comp-progress-bar"><div class="fill" style="width: 78%;"></div></div>
+                </div>
+
+                <div class="comp-item">
+                  <div class="comp-label-row">
+                    <span>Komunikasi Pasien</span>
+                    <strong>85%</strong>
+                  </div>
+                  <div class="comp-progress-bar"><div class="fill" style="width: 85%;"></div></div>
+                </div>
+
+                <div class="comp-item">
+                  <div class="comp-label-row">
+                    <span>Profesionalisme</span>
+                    <strong>92%</strong>
+                  </div>
+                  <div class="comp-progress-bar"><div class="fill" style="width: 92%;"></div></div>
+                </div>
+
+                <div class="comp-item">
+                  <div class="comp-label-row">
+                    <span>Empati &amp; Humanisme</span>
+                    <strong>70%</strong>
+                  </div>
+                  <div class="comp-progress-bar"><div class="fill" style="width: 70%;"></div></div>
+                </div>
+
+                <button class="btn-ask-ai-guide" onclick="switchBottomTab('chat')">
+                  <i class="fa-regular fa-comment-dots"></i>
+                  <span>Tanya AI Guide untuk insight lebih dalam</span>
+                </button>
+              </div>
+
+              <!-- Section: Refleksi Terbaru -->
+              <div class="section-title-row" style="margin-top:6px;">
+                <h4>Refleksi Terbaru</h4>
+                <a href="javascript:void(0)" class="link-see-all" onclick="switchBottomTab('progress')">Lihat semua</a>
+              </div>
+
+              <div class="recent-reflections-list">
+                <div class="recent-item-card" onclick="openExistingReflection('sample-1')">
+                  <div class="recent-icon-box heart"><i class="fa-regular fa-heart"></i></div>
+                  <div class="recent-info">
+                    <div class="recent-title">Kasus Gagal Jantung Akut</div>
+                    <div class="recent-sub">Rotasi Kardiologi • <i class="fa-regular fa-clock"></i> Kemarin</div>
+                    <div class="recent-progress-wrapper">
+                      <div class="recent-progress-bar"><div class="fill" style="width: 85%;"></div></div>
+                      <span>85%</span>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right chevron"></i>
+                </div>
+
+                <div class="recent-item-card" onclick="openExistingReflection('sample-1')">
+                  <div class="recent-icon-box msg"><i class="fa-regular fa-comment"></i></div>
+                  <div class="recent-info">
+                    <div class="recent-title">Komunikasi Berita Buruk</div>
+                    <div class="recent-sub">Rotasi Onkologi • <i class="fa-regular fa-clock"></i> 3 hari lalu</div>
+                    <div class="recent-progress-wrapper">
+                      <div class="recent-progress-bar"><div class="fill" style="width: 72%;"></div></div>
+                      <span>72%</span>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right chevron"></i>
+                </div>
+
+                <div class="recent-item-card" onclick="openExistingReflection('sample-1')">
+                  <div class="recent-icon-box brain"><i class="fa-solid fa-brain"></i></div>
+                  <div class="recent-info">
+                    <div class="recent-title">Prosedur Lumbal Pungsi</div>
+                    <div class="recent-sub">Rotasi Neurologi • <i class="fa-regular fa-clock"></i> 1 minggu lalu</div>
+                    <div class="recent-progress-wrapper">
+                      <div class="recent-progress-bar"><div class="fill" style="width: 91%;"></div></div>
+                      <span>91%</span>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right chevron"></i>
+                </div>
+              </div>
+
+              <!-- Quote of the Day (Donald Schön) -->
+              <div class="daily-quote-card">
+                <div class="quote-tag">
+                  <i class="fa-solid fa-sparkles"></i> Refleksi Hari Ini
+                </div>
+                <p class="quote-text">
+                  "Refleksi bukan tentang menyalahkan diri sendiri, tapi tentang memahami dan tumbuh bersama pengalaman."
+                </p>
+                <div class="quote-author">— Donald Schön, <em>The Reflective Practitioner</em></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- TAB 2: REFLEKSI (REFLEKSI.png - FORM GIBBS) -->
+          <!-- ============================================ -->
+          <section id="tab-refleksi" class="mobile-screen">
+            <!-- Header Bar -->
+            <div class="med-header-teal compact">
+              <div class="med-header-top">
+                <button class="back-btn" onclick="switchBottomTab('beranda')"><i class="fa-solid fa-arrow-left"></i></button>
+                <img src="assets/images/logo.png" alt="Logo" class="appbar-brand-logo">
+                <div class="step-counter-pill" id="form-step-counter">Tahap 1 / 6</div>
+              </div>
+              <div class="form-progress-bar-wrap">
+                <div class="form-progress-bar-fill" id="form-progress-fill" style="width: 16.6%;"></div>
+              </div>
+              <!-- 6 Tabs -->
+              <div class="gibbs-form-tabs-scroll">
+                <button class="gibbs-tab-btn active" id="tab-step-1" onclick="setGibbsFormStep(1)"><i class="fa-regular fa-file-lines"></i> Deskripsi</button>
+                <button class="gibbs-tab-btn" id="tab-step-2" onclick="setGibbsFormStep(2)"><i class="fa-regular fa-heart"></i> Perasaan</button>
+                <button class="gibbs-tab-btn" id="tab-step-3" onclick="setGibbsFormStep(3)"><i class="fa-solid fa-scale-balanced"></i> Evaluasi</button>
+                <button class="gibbs-tab-btn" id="tab-step-4" onclick="setGibbsFormStep(4)"><i class="fa-solid fa-magnifying-glass"></i> Analisis</button>
+                <button class="gibbs-tab-btn" id="tab-step-5" onclick="setGibbsFormStep(5)"><i class="fa-regular fa-lightbulb"></i> Kesimpulan</button>
+                <button class="gibbs-tab-btn" id="tab-step-6" onclick="setGibbsFormStep(6)"><i class="fa-solid fa-bullseye"></i> Aksi</button>
+              </div>
+            </div>
+
+            <!-- Scrollable Form Body -->
+            <div class="screen-scrollable" style="padding-top: 14px;">
+              <!-- Card 1: Info Kasus -->
+              <div class="med-form-card">
+                <div class="card-header-icon-title">
+                  <i class="fa-regular fa-folder-open teal"></i>
+                  <strong>Info Kasus</strong>
+                </div>
+                <div class="field-wrap">
+                  <label>Nama / Deskripsi Kasus</label>
+                  <input type="text" id="form-case-name" placeholder="Contoh: Pasien sesak napas akut, 58 thn" value="Pasien sesak napas akut dengan hipertensi emergensi">
+                </div>
+                <div class="field-wrap">
+                  <label>Rotasi / Stase</label>
+                  <input type="text" id="form-case-rotation" placeholder="Contoh: Rotasi Interna — RSUD Dr. Soetomo" value="Rotasi Interna — RSUD Dr. Soetomo">
+                </div>
+                <div class="field-wrap">
+                  <label>Mood saat ini</label>
+                  <div class="mood-selector-row">
+                    <div class="mood-btn" onclick="selectMood(this, 'Berat')">
+                      <span class="mood-icon">🌧️</span>
+                      <span class="mood-lbl">Berat</span>
+                    </div>
+                    <div class="mood-btn selected" onclick="selectMood(this, 'Cemas')">
+                      <span class="mood-icon">😟</span>
+                      <span class="mood-lbl">Cemas</span>
+                    </div>
+                    <div class="mood-btn" onclick="selectMood(this, 'Netral')">
+                      <span class="mood-icon">😐</span>
+                      <span class="mood-lbl">Netral</span>
+                    </div>
+                    <div class="mood-btn" onclick="selectMood(this, 'Baik')">
+                      <span class="mood-icon">😊</span>
+                      <span class="mood-lbl">Baik</span>
+                    </div>
+                    <div class="mood-btn" onclick="selectMood(this, 'Positif')">
+                      <span class="mood-icon">😁</span>
+                      <span class="mood-lbl">Positif</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Dynamic Gibbs Active Stage -->
+              <div class="med-form-card" id="gibbs-step-container">
+                <div class="stage-tag-badge">
+                  <span class="tag-pill" id="stage-tag-title">Deskripsi</span>
+                  <span class="tag-sub" id="stage-tag-sub">Description</span>
+                </div>
+                <h4 class="stage-question" id="stage-question-text">Apa yang terjadi?</h4>
+
+                <div class="accordion-guide" onclick="toggleGuideAccordion()">
+                  <i class="fa-regular fa-lightbulb"></i>
+                  <span>Panduan refleksi</span>
+                  <i class="fa-solid fa-chevron-down guide-arrow" id="guide-arrow"></i>
+                </div>
+                <div class="guide-content" id="guide-content-box" style="display:none;">
+                  Ceritakan kronologi kejadian faktual: apa yang terjadi, siapa saja yang ada di ruangan, apa tugas Anda, dan bagaimana situasi klinis berkembang tanpa menyalahkan pihak manapun.
+                </div>
+
+                <div class="textarea-wrapper">
+                  <textarea id="form-stage-text" rows="5" placeholder="Contoh: Hari ini saya merawat Tn. X, 58 tahun, datang dengan sesak napas mendadak. Saat visite pagi, tekanan darahnya 180/110 mmHg..."></textarea>
+                </div>
+
+                <div class="form-bottom-meta">
+                  <span class="word-count" id="form-word-count">0 kata · min. 20 karakter</span>
+                  <button class="btn-voice-pill" onclick="simulateVoiceNoteForm()">
+                    <i class="fa-solid fa-microphone"></i>
+                    <span>Suara</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Template Guide Accordion -->
+              <div class="template-accordion-btn" onclick="insertTemplateContent()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Gunakan template sebagai panduan awal</span>
+              </div>
+
+              <!-- Next / Finish Action Button -->
+              <button class="btn-med-primary-pill" id="btn-form-next" onclick="nextGibbsFormStep()">
+                <span>Lanjut</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- TAB 3: AI GUIDE (CHATBOT CONSULT.png) -->
+          <!-- ============================================ -->
+          <section id="tab-chat" class="mobile-screen">
+            <!-- Header Bar -->
+            <div class="med-header-teal compact">
+              <div class="med-header-top">
+                <button class="back-btn" onclick="switchBottomTab('beranda')"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="chat-title-group">
+                  <div class="ai-active-status">
+                    <img src="assets/images/logo.png" alt="Logo" class="chat-mini-logo">
+                    <span>AI Guide · Aktif</span>
+                  </div>
+                </div>
+                <button class="refresh-btn" onclick="resetChat()" title="Reset Dialog"><i class="fa-solid fa-rotate-right"></i></button>
+              </div>
+
+              <div class="chat-context-pill">
+                <i class="fa-regular fa-clipboard"></i>
+                <span>Konteks: Siklus Refleksi Gibbs · Rotasi Interna</span>
+              </div>
+            </div>
+
+            <!-- Encryption & Privacy Notice -->
+            <div class="chat-privacy-notice">
+              Percakapan ini bersifat privat dan terenkripsi. AI memfasilitasi refleksi — bukan pengganti diskusi dengan supervisor Anda.
+            </div>
+
+            <!-- Chat Message Thread -->
+            <div id="chat-messages-container" class="chat-messages-container">
+              <!-- Dynamically populated messages -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="chat-typing-indicator" class="typing-bubble" style="display:none;">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="typing-text">AI Guide sedang merenung & merespons...</span>
+            </div>
+
+            <!-- Suggestion Chips: "Mulai dengan:" -->
+            <div class="quick-scenarios-scroll" id="quick-scenarios-bar">
+              <div class="scenarios-title-tiny">Mulai dengan:</div>
+              <button class="scenario-chip" onclick="sendPresetScenario('kasus')">
+                Saya punya kasus yang ingin saya refleksikan
+              </button>
+              <button class="scenario-chip" onclick="sendPresetScenario('perasaan')">
+                Bantu saya memahami perasaan saya
+              </button>
+              <button class="scenario-chip" onclick="sendPresetScenario('pelajaran')">
+                Apa yang bisa saya pelajari dari situasi ini?
+              </button>
+              <button class="scenario-chip" onclick="sendPresetScenario('komunikasi')">
+                Bagaimana cara meningkatkan komunikasi klinis saya?
+              </button>
+            </div>
+
+            <!-- Counseling Wellbeing Callout -->
+            <div class="counseling-callout">
+              <div class="callout-left">
+                <i class="fa-regular fa-heart"></i>
+                <span>Butuh dukungan? Layanan konseling tersedia.</span>
+              </div>
+              <a href="mailto:wellbeing@fk.unair.ac.id" class="callout-link">Hubungi</a>
+            </div>
+
+            <!-- Synthesize CTA -->
+            <div id="synthesize-cta-wrapper" class="synthesize-action-wrapper" style="display:none;">
+              <button class="btn-synthesize" onclick="synthesizeGibbsReport()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Sintesis Laporan Gibbs &amp; PDF</span>
+              </button>
+            </div>
+
+            <!-- Chat Input Bar -->
+            <div class="chat-input-bar">
+              <button class="voice-btn" onclick="simulateVoiceNote()" title="Rekam Suara 60 Detik (Slide 14)">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
+              <div class="input-field-wrapper">
+                <textarea id="chat-input-text" rows="1" placeholder="Ceritakan pengalaman Anda..." onkeydown="handleInputKey(event)"></textarea>
+              </div>
+              <button id="chat-send-btn" class="send-btn" onclick="sendUserMessage()">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="input-disclaimer-tiny">
+              AI tidak menyimpan identitas pasien · Enter untuk kirim
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- TAB 4: PROGRESS (AI Reflection App Design.png) -->
+          <!-- ============================================ -->
+          <section id="tab-progress" class="mobile-screen">
+            <!-- Header Bar -->
+            <div class="med-header-teal compact">
+              <div class="med-header-top">
+                <button class="back-btn" onclick="switchBottomTab('beranda')"><i class="fa-solid fa-arrow-left"></i></button>
+                <img src="assets/images/logo.png" alt="Logo" class="appbar-brand-logo">
+                <div class="header-action-icons">
+                  <button class="icon-tool-btn" onclick="openPdfPreviewModal()" title="Ekspor PDF"><i class="fa-solid fa-download"></i></button>
+                  <button class="icon-tool-btn" title="Kalender"><i class="fa-regular fa-calendar"></i></button>
+                </div>
+              </div>
+
+              <!-- 4 Stat Metric Cards -->
+              <div class="progress-stats-grid">
+                <div class="p-stat-box">
+                  <i class="fa-regular fa-bookmark"></i>
+                  <strong>24</strong>
+                  <span>Refleksi</span>
+                </div>
+                <div class="p-stat-box">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <strong>79%</strong>
+                  <span>Avg Depth</span>
+                </div>
+                <div class="p-stat-box">
+                  <i class="fa-regular fa-circle-dot"></i>
+                  <strong>7h</strong>
+                  <span>Streak</span>
+                </div>
+                <div class="p-stat-box">
+                  <i class="fa-solid fa-medal"></i>
+                  <strong>4/6</strong>
+                  <span>Badge</span>
+                </div>
+              </div>
+
+              <!-- Sub-tabs -->
+              <div class="progress-segmented-tabs">
+                <button class="p-tab-btn active">Ringkasan</button>
+                <button class="p-tab-btn" onclick="showToast('Riwayat seluruh refleksi dimuat.')">Riwayat</button>
+                <button class="p-tab-btn" onclick="showToast('4 dari 6 Badge kompetensi telah dicapai!')">Badge</button>
+              </div>
+            </div>
+
+            <!-- Scrollable Body -->
+            <div class="screen-scrollable" style="padding-top: 14px;">
+              <!-- Line Chart Card: Tren Kedalaman Refleksi -->
+              <div class="med-analytics-card">
+                <div class="chart-header-row">
+                  <h4>Tren Kedalaman Refleksi</h4>
+                  <span class="growth-tag">+43% bulan ini</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="depthTrendCanvas" width="340" height="150"></canvas>
+                </div>
+              </div>
+
+              <!-- Radar Chart Card: Profil Kompetensi -->
+              <div class="med-analytics-card">
+                <div class="chart-header-row">
+                  <div>
+                    <h4>Profil Kompetensi</h4>
+                    <small style="color:#64748b; font-size:11px;">Berdasarkan tema refleksi Anda</small>
+                  </div>
+                </div>
+                <div class="radar-canvas-wrapper">
+                  <canvas id="competencyRadarCanvas" width="320" height="240"></canvas>
+                </div>
+              </div>
+
+              <!-- Topic Tags Cloud -->
+              <div class="topic-tags-cloud">
+                <span class="topic-tag highlight">komunikasi</span>
+                <span class="topic-tag highlight">empati</span>
+                <span class="topic-tag">pasien</span>
+                <span class="topic-tag">keputusan klinis</span>
+                <span class="topic-tag">tim medis</span>
+                <span class="topic-tag">refleksi diri</span>
+                <span class="topic-tag">berita buruk</span>
+                <span class="topic-tag highlight">profesionalisme</span>
+                <span class="topic-tag">patient safety</span>
+                <span class="topic-tag">hierarki</span>
+              </div>
+
+              <!-- Insight AI Guide Card -->
+              <div class="ai-insight-box">
+                <div class="insight-title">
+                  <i class="fa-regular fa-star"></i>
+                  <strong>Insight AI Guide</strong>
+                </div>
+                <p class="insight-body">
+                  Refleksi Anda menunjukkan <strong>peningkatan signifikan</strong> dalam kedalaman analisis (+43% bulan ini). Tema <strong>komunikasi</strong> paling sering muncul — pertimbangkan mengeksplorasi SPIKES protocol lebih dalam. Area yang perlu perhatian: <strong>empati dalam situasi kritis</strong>.
+                </p>
+                <button class="btn-add-reflection" onclick="switchBottomTab('refleksi')">
+                  Tambah refleksi baru
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- TAB 5: PROFIL (AI Reflection App Design-1.png) -->
+          <!-- ============================================ -->
+          <section id="tab-profil" class="mobile-screen">
+            <!-- Header Bar -->
+            <div class="med-header-teal profile-header">
+              <div class="med-header-top">
+                <button class="back-btn" onclick="switchBottomTab('beranda')"><i class="fa-solid fa-arrow-left"></i></button>
+                <img src="assets/images/logo.png" alt="Logo" class="appbar-brand-logo">
+                <button class="icon-tool-btn" onclick="openProfileModal()"><i class="fa-solid fa-pen-to-square"></i></button>
+              </div>
+
+              <!-- Profile Identity Card -->
+              <div class="profile-user-card">
+                <div class="profile-avatar-circle">
+                  <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="profile-user-info">
+                  <h3 id="prof-name-display">dr. Andi Pratama</h3>
+                  <p id="prof-nim-display">Mahasiswa Koas · NIM 012024001</p>
+                  <small id="prof-univ-display">FK Universitas Airlangga · Angkatan 2021</small>
+                </div>
+              </div>
+
+              <!-- 3 Metric Pills -->
+              <div class="profile-stats-row">
+                <div class="prof-stat-pill">
+                  <strong>24</strong>
+                  <span>Refleksi</span>
+                </div>
+                <div class="prof-stat-pill">
+                  <strong>3/8</strong>
+                  <span>Rotasi Selesai</span>
+                </div>
+                <div class="prof-stat-pill">
+                  <strong>82%</strong>
+                  <span>Kompetensi</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scrollable Body -->
+            <div class="screen-scrollable" style="padding-top: 14px;">
+              <!-- Data Protection Notice (UU PDP) -->
+              <div class="data-protection-banner">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                  <strong>Data Anda Terlindungi</strong>
+                  <p>Refleksi Anda dienkripsi end-to-end dan tidak pernah dibagikan tanpa persetujuan Anda. Sesuai UU PDP &amp; standar etika medis.</p>
+                </div>
+              </div>
+
+              <!-- Menu Section: AKUN -->
+              <div class="menu-group-card">
+                <div class="menu-group-title">AKUN</div>
+                <div class="menu-item-row" onclick="openProfileModal()">
+                  <div class="menu-icon-box"><i class="fa-regular fa-user"></i></div>
+                  <div class="menu-text-box">
+                    <span>Profil &amp; Identitas</span>
+                    <small>Nama, NIM, institusi</small>
+                  </div>
+                  <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+                <div class="menu-item-row" onclick="showToast('SSO Kampus terhubung dan aktif.')">
+                  <div class="menu-icon-box"><i class="fa-solid fa-shield-check"></i></div>
+                  <div class="menu-text-box">
+                    <span>Autentikasi SSO</span>
+                    <small>Terhubung: Unair ID / President ID</small>
+                  </div>
+                  <span class="tag-status-active">Aktif</span>
+                </div>
+                <div class="menu-item-row" onclick="showToast('Enkripsi data AES-256 aktif.')">
+                  <div class="menu-icon-box"><i class="fa-solid fa-lock"></i></div>
+                  <div class="menu-text-box">
+                    <span>Privasi &amp; Keamanan</span>
+                    <small>Enkripsi data, sesi login</small>
+                  </div>
+                  <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+              </div>
+
+              <!-- Menu Section: REFLEKSI & PEMBELAJARAN -->
+              <div class="menu-group-card">
+                <div class="menu-group-title">REFLEKSI &amp; PEMBELAJARAN</div>
+                <div class="menu-item-row" onclick="openAiTrainingModal()">
+                  <div class="menu-icon-box" style="background: rgba(19, 138, 150, 0.15); color: #0A5C67;"><i class="fa-solid fa-sliders"></i></div>
+                  <div class="menu-text-box">
+                    <span>Studio Pelatihan AI</span>
+                    <small>Kalibrasi persona, bank kasus &amp; fine-tuning</small>
+                  </div>
+                  <span class="tag-status-active" style="background:#0A5C67; color:#5EEAD4;">Educator</span>
+                </div>
+                <div class="menu-item-row">
+                  <div class="menu-icon-box"><i class="fa-regular fa-bell"></i></div>
+                  <div class="menu-text-box">
+                    <span>Pengingat Refleksi</span>
+                    <small>Setelah rotasi &amp; kasus penting</small>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="showToast('Pengingat refleksi diperbarui.')">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="menu-item-row" onclick="showToast('Model aktif: Siklus Gibbs 1988 (AMEE Guide 44)')">
+                  <div class="menu-icon-box"><i class="fa-regular fa-bookmark"></i></div>
+                  <div class="menu-text-box">
+                    <span>Model Refleksi</span>
+                    <small>Saat ini: Siklus Gibbs</small>
+                  </div>
+                  <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+              </div>
+
+              <!-- Menu Section: TAMPILAN -->
+              <div class="menu-group-card">
+                <div class="menu-group-title">TAMPILAN</div>
+                <div class="menu-item-row">
+                  <div class="menu-icon-box"><i class="fa-regular fa-moon"></i></div>
+                  <div class="menu-text-box">
+                    <span>Mode Gelap</span>
+                    <small>Tampilan malam hari</small>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" onchange="toggleDarkMode(this)">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="menu-item-row" onclick="showToast('Pengaturan ukuran font normal.')">
+                  <div class="menu-icon-box"><i class="fa-regular fa-star"></i></div>
+                  <div class="menu-text-box">
+                    <span>Aksesibilitas</span>
+                    <small>Ukuran teks &amp; kontras</small>
+                  </div>
+                  <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+              </div>
+
+              <!-- Menu Section: BANTUAN & KESEJAHTERAAN -->
+              <div class="menu-group-card">
+                <div class="menu-group-title">BANTUAN &amp; KESEJAHTERAAN</div>
+                <a href="mailto:wellbeing@fk.unair.ac.id" class="menu-item-row" style="text-decoration:none;">
+                  <div class="menu-icon-box"><i class="fa-regular fa-heart"></i></div>
+                  <div class="menu-text-box">
+                    <span>Layanan Konseling</span>
+                    <small>wellbeing@fk.unair.ac.id</small>
+                  </div>
+                  <i class="fa-solid fa-chevron-right arrow"></i>
+                </a>
+                <div class="menu-item-row" onclick="showToast('Panduan siklus Gibbs dan AMEE Guide 44.')">
+                  <div class="menu-icon-box"><i class="fa-regular fa-circle-question"></i></div>
+                  <div class="menu-text-box">
+                    <span>Panduan Pengguna</span>
+                    <small>Tutorial &amp; FAQ</small>
+                  </div>
+                  <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+              </div>
+
+              <!-- Menu Section: KONTRIBUSI RISET -->
+              <div class="menu-group-card">
+                <div class="menu-group-title">KONTRIBUSI RISET</div>
+                <div style="padding: 10px 14px; font-size:11px; color:#475569; line-height:1.4;">
+                  Data refleksi Anda (anonim) membantu pendidik memahami tren pembelajaran kohort untuk perbaikan kurikulum.
+                </div>
+                <div class="menu-item-row" style="border-top: 1px solid #e2e8f0;">
+                  <div class="menu-text-box">
+                    <span style="font-weight:700;">Izinkan data anonim untuk riset</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="showToast('Persetujuan riset disimpan.')">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Logout Button -->
+              <button class="btn-logout" onclick="openAuthModal('login')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Keluar dari Akun</span>
+              </button>
+
+              <div class="footer-legal-note">
+                MedReflect v1.0.0 · FK President University / FK Unair<br>
+                Sesuai UU PDP &amp; Standar Etika Medis Indonesia
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SUB-SCREEN: GIBBS REPORT & DEPTH -->
+          <!-- ============================================ -->
+          <section id="screen-report" class="mobile-screen">
+            <div class="med-header-teal compact">
+              <div class="med-header-top">
+                <button class="back-btn" onclick="switchBottomTab('beranda')"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="chat-title-group">
+                  <h4 style="color:#fff; font-size:14px; margin:0;">Laporan Refleksi Gibbs</h4>
+                  <small style="color:rgba(255,255,255,0.8); font-size:10.5px;" id="report-dept-badge">Ilmu Penyakit Dalam</small>
+                </div>
+                <div class="header-action-icons">
+                  <button class="icon-tool-btn" onclick="openPdfPreviewModal()" title="Ekspor PDF"><i class="fa-solid fa-file-pdf"></i></button>
+                  <button class="icon-tool-btn" onclick="navigateToScreen('eportfolio')" title="Salin e-Portofolio"><i class="fa-solid fa-copy"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen-scrollable" style="padding-top: 14px;">
+              <!-- Report Card Header -->
+              <div class="report-meta-card">
+                <div class="meta-top">
+                  <span class="report-tag" id="rep-stase-tag">Stase Ilmu Penyakit Dalam</span>
+                  <span class="completion-pill"><i class="fa-solid fa-circle-check"></i> Selesai 100%</span>
+                </div>
+                <h3 class="report-title-text" id="rep-title">Refleksi Pengalaman Klinis</h3>
+                <p class="report-student-meta" id="rep-author-info">Oleh: dr. Muda · RSUP Pendidikan Utama</p>
+              </div>
+
+              <!-- Depth Meter Card (AMEE Guide 44) -->
+              <div id="depth-meter-container" class="depth-card analytical">
+                <div class="depth-top">
+                  <div class="depth-badge-label">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>Tingkat Kedalaman Refleksi (AMEE Guide 44)</span>
+                  </div>
+                  <span class="depth-pill" id="depth-pill-level">Level 2: Analytical</span>
+                </div>
+                <h4 id="depth-title-display">Analytical (Reflektif Kritis)</h4>
+                <div class="depth-bar">
+                  <div id="depth-progress-fill" class="depth-fill" style="width: 70%;"></div>
+                </div>
+                <p class="depth-rationale-text" id="depth-rationale-display">
+                  Mahasiswa berhasil melangkah melampaui deskripsi murni, menelaah motif emosi, serta mengevaluasi faktor pendukung dan penghambat secara kritis.
+                </p>
+              </div>
+
+              <!-- Key Takeaway Ribbon -->
+              <div class="key-takeaway-ribbon">
+                <i class="fa-solid fa-lightbulb"></i>
+                <div class="takeaway-text">
+                  <strong>Pelajaran Inti:</strong>
+                  <span id="rep-takeaway">"Refleksi yang jujur mengubah pengalaman klinis biasa menjadi keahlian profesional sejati."</span>
+                </div>
+              </div>
+
+              <!-- Gibbs 6 Stages Cards -->
+              <div class="section-title">
+                <i class="fa-solid fa-arrows-spin"></i> Enam Fase Siklus Gibbs (1988)
+              </div>
+
+              <div class="gibbs-cards-stack">
+                <div class="gibbs-stage-card">
+                  <div class="stage-header">
+                    <div class="stage-badge">1</div>
+                    <div class="stage-names">
+                      <strong>Description</strong>
+                      <small>Apa yang sebenarnya terjadi secara objektif?</small>
+                    </div>
+                    <button class="stage-edit-btn" onclick="editSectionPrompt('description')"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                  <div class="stage-body" id="rep-body-description">-</div>
+                </div>
+
+                <div class="gibbs-stage-card">
+                  <div class="stage-header">
+                    <div class="stage-badge">2</div>
+                    <div class="stage-names">
+                      <strong>Feelings</strong>
+                      <small>Apa yang kamu rasakan saat kejadian &amp; sesudahnya?</small>
+                    </div>
+                    <button class="stage-edit-btn" onclick="editSectionPrompt('feelings')"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                  <div class="stage-body" id="rep-body-feelings">-</div>
+                </div>
+
+                <div class="gibbs-stage-card">
+                  <div class="stage-header">
+                    <div class="stage-badge">3</div>
+                    <div class="stage-names">
+                      <strong>Evaluation</strong>
+                      <small>Apa aspek yang berjalan baik dan kurang baik?</small>
+                    </div>
+                    <button class="stage-edit-btn" onclick="editSectionPrompt('evaluation')"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                  <div class="stage-body" id="rep-body-evaluation">-</div>
+                </div>
+
+                <div class="gibbs-stage-card">
+                  <div class="stage-header">
+                    <div class="stage-badge">4</div>
+                    <div class="stage-names">
+                      <strong>Analysis</strong>
+                      <small>Mengapa hal itu terjadi? Kaitkan faktor medis &amp; komunikasi</small>
+                    </div>
+                    <button class="stage-edit-btn" onclick="editSectionPrompt('analysis')"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                  <div class="stage-body" id="rep-body-analysis">-</div>
+                </div>
+
+                <div class="gibbs-stage-card">
+                  <div class="stage-header">
+                    <div class="stage-badge">5</div>
+                    <div class="stage-names">
+                      <strong>Conclusion</strong>
+                      <small>Apa pemahaman baru tentang dirimu dan situasi klinis?</small>
+                    </div>
+                    <button class="stage-edit-btn" onclick="editSectionPrompt('conclusion')"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                  <div class="stage-body" id="rep-body-conclusion">-</div>
+                </div>
+
+                <div class="gibbs-stage-card">
+                  <div class="stage-header">
+                    <div class="stage-badge">6</div>
+                    <div class="stage-names">
+                      <strong>Action Plan</strong>
+                      <small>Apa yang akan kamu lakukan berbeda di masa depan?</small>
+                    </div>
+                    <button class="stage-edit-btn" onclick="editSectionPrompt('actionPlan')"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                  <div class="stage-body" id="rep-body-actionPlan">-</div>
+                </div>
+              </div>
+
+              <!-- SMART Action Plan Card -->
+              <div class="smart-card">
+                <div class="smart-header">
+                  <div class="smart-title">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span>Rencana Aksi Berformat SMART (Slide 19)</span>
+                  </div>
+                  <span class="smart-badge-complete">Lengkap</span>
+                </div>
+                <div class="smart-table">
+                  <div class="smart-row">
+                    <span class="smart-letter">S</span>
+                    <div class="smart-details">
+                      <strong>Specific (Spesifik):</strong>
+                      <p id="smart-val-specific">-</p>
+                    </div>
+                  </div>
+                  <div class="smart-row">
+                    <span class="smart-letter">M</span>
+                    <div class="smart-details">
+                      <strong>Measurable (Terukur):</strong>
+                      <p id="smart-val-measurable">-</p>
+                    </div>
+                  </div>
+                  <div class="smart-row">
+                    <span class="smart-letter">A</span>
+                    <div class="smart-details">
+                      <strong>Achievable (Dapat Dicapai):</strong>
+                      <p id="smart-val-achievable">-</p>
+                    </div>
+                  </div>
+                  <div class="smart-row">
+                    <span class="smart-letter">R</span>
+                    <div class="smart-details">
+                      <strong>Relevant (Relevan):</strong>
+                      <p id="smart-val-relevant">-</p>
+                    </div>
+                  </div>
+                  <div class="smart-row">
+                    <span class="smart-letter">T</span>
+                    <div class="smart-details">
+                      <strong>Time-bound (Batas Waktu):</strong>
+                      <p id="smart-val-timebound">-</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Actions -->
+              <div class="report-action-buttons">
+                <button class="btn-primary-action" onclick="openPdfPreviewModal()">
+                  <i class="fa-solid fa-file-pdf"></i> Ekspor PDF Laporan Resmi
+                </button>
+                <button class="btn-secondary-action" onclick="navigateToScreen('eportfolio')">
+                  <i class="fa-solid fa-copy"></i> Salin ke e-Portofolio (1-Klik)
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SUB-SCREEN: E-PORTFOLIO INTEGRATION -->
+          <!-- ============================================ -->
+          <section id="screen-eportfolio" class="mobile-screen">
+            <div class="med-header-teal compact">
+              <div class="med-header-top">
+                <button class="back-btn" onclick="navigateToScreen('report')"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="chat-title-group">
+                  <h4 style="color:#fff; font-size:14px; margin:0;">Integrasi e-Portofolio</h4>
+                  <small style="color:rgba(255,255,255,0.8); font-size:10.5px;">Salin Tanpa Ketik Ulang</small>
+                </div>
+                <div style="width:36px;"></div>
+              </div>
+            </div>
+
+            <div class="screen-scrollable" style="padding-top: 14px;">
+              <div class="info-callout">
+                <i class="fa-solid fa-circle-check"></i>
+                <p>Klik tombol <strong>"Salin"</strong> di setiap kolom atau salin seluruh esai sekaligus untuk langsung ditempel ke portal e-Portofolio / LMS Moodle kampus Anda.</p>
+              </div>
+
+              <button class="copy-full-btn" onclick="copyFullEssayToClipboard()">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Salin Seluruh Esai Refleksi (1-Klik)</span>
+              </button>
+
+              <button class="export-json-btn" onclick="copyJsonToClipboard()">
+                <i class="fa-solid fa-code"></i>
+                <span>Ekspor Format Data JSON (Untuk API Portal)</span>
+              </button>
+
+              <div class="section-title" style="margin-top:16px;">
+                <i class="fa-solid fa-list-check"></i> Salin Per Kolom Isian Kampus:
+              </div>
+
+              <div class="copy-field-list">
+                <div class="copy-item">
+                  <div class="item-header">
+                    <span>1. Deskripsi Kejadian (Description)</span>
+                    <button class="chip-copy-btn" onclick="copySingleField('rep-body-description', 'Deskripsi')"><i class="fa-solid fa-copy"></i> Salin</button>
+                  </div>
+                  <p class="item-preview" id="sync-desc">-</p>
+                </div>
+
+                <div class="copy-item">
+                  <div class="item-header">
+                    <span>2. Perasaan &amp; Emosi (Feelings)</span>
+                    <button class="chip-copy-btn" onclick="copySingleField('rep-body-feelings', 'Perasaan')"><i class="fa-solid fa-copy"></i> Salin</button>
+                  </div>
+                  <p class="item-preview" id="sync-feelings">-</p>
+                </div>
+
+                <div class="copy-item">
+                  <div class="item-header">
+                    <span>3. Evaluasi Baik &amp; Buruk (Evaluation)</span>
+                    <button class="chip-copy-btn" onclick="copySingleField('rep-body-evaluation', 'Evaluasi')"><i class="fa-solid fa-copy"></i> Salin</button>
+                  </div>
+                  <p class="item-preview" id="sync-eval">-</p>
+                </div>
+
+                <div class="copy-item">
+                  <div class="item-header">
+                    <span>4. Analisis Kritis (Analysis)</span>
+                    <button class="chip-copy-btn" onclick="copySingleField('rep-body-analysis', 'Analisis')"><i class="fa-solid fa-copy"></i> Salin</button>
+                  </div>
+                  <p class="item-preview" id="sync-analysis">-</p>
+                </div>
+
+                <div class="copy-item">
+                  <div class="item-header">
+                    <span>5. Kesimpulan (Conclusion)</span>
+                    <button class="chip-copy-btn" onclick="copySingleField('rep-body-conclusion', 'Kesimpulan')"><i class="fa-solid fa-copy"></i> Salin</button>
+                  </div>
+                  <p class="item-preview" id="sync-conclusion">-</p>
+                </div>
+
+                <div class="copy-item">
+                  <div class="item-header">
+                    <span>6. Rencana Aksi (Action Plan - SMART)</span>
+                    <button class="chip-copy-btn" onclick="copySingleField('rep-body-actionPlan', 'Rencana Aksi')"><i class="fa-solid fa-copy"></i> Salin</button>
+                  </div>
+                  <p class="item-preview" id="sync-action">-</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ============================================ -->
+        <!-- BOTTOM NAVIGATION BAR (Matching BottomNav.png) -->
+        <!-- ============================================ -->
+        <nav class="med-bottom-nav">
+          <button class="nav-item active" id="nav-beranda" onclick="switchBottomTab('beranda')">
+            <i class="fa-solid fa-house"></i>
+            <span>Beranda</span>
+          </button>
+          <button class="nav-item" id="nav-refleksi" onclick="switchBottomTab('refleksi')">
+            <i class="fa-regular fa-bookmark"></i>
+            <span>Refleksi</span>
+          </button>
+          <button class="nav-item has-badge" id="nav-chat" onclick="switchBottomTab('chat')">
+            <div class="nav-icon-wrapper">
+              <i class="fa-regular fa-comment-dots"></i>
+              <span class="nav-dot"></span>
+            </div>
+            <span>AI Guide</span>
+          </button>
+          <button class="nav-item" id="nav-progress" onclick="switchBottomTab('progress')">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span>Progress</span>
+          </button>
+          <button class="nav-item" id="nav-profil" onclick="switchBottomTab('profil')">
+            <i class="fa-regular fa-user"></i>
+            <span>Profil</span>
+          </button>
+        </nav>
+
+        <!-- Phone Home Indicator Bar -->
+        <div class="phone-home-indicator"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MODAL 1: AUTH & ONBOARDING WALKTHROUGH PREVIEW -->
+  <!-- ============================================ -->
+  <div id="modal-auth" class="modal-overlay" style="display:none;">
+    <div class="modal-card auth-preview-card">
+      <div class="modal-header">
+        <h3 id="auth-modal-title"><i class="fa-solid fa-mobile-screen"></i> Onboarding &amp; Login Flow</h3>
+        <button class="close-btn" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body auth-preview-body">
+        <!-- Onboarding Slide View -->
+        <div id="auth-slide-1" class="auth-slide active">
+          <div class="auth-slide-teal-bg">
+            <div class="auth-slide-top">
+              <img src="assets/images/logo.png" alt="Logo" class="auth-logo-white">
+              <button class="btn-skip-pill" onclick="showAuthSlide(3)">Lewati</button>
+            </div>
+            <div class="slide-center-graphic">
+              <div class="book-graphic-box">
+                <i class="fa-solid fa-book-open"></i>
+                <div class="floating-chip c1">Deskripsi</div>
+                <div class="floating-chip c2">Perasaan</div>
+                <div class="floating-chip c3">Evaluasi</div>
+                <div class="floating-chip c4">Analisis</div>
+                <div class="floating-chip c5">Kesimpulan</div>
+                <div class="floating-chip c6">Aksi</div>
+              </div>
+            </div>
+            <h3 class="auth-slide-title">Refleksi Klinis yang Terstruktur</h3>
+            <p class="auth-slide-desc">Panduan siklus Gibbs 6 tahap membantu Anda merefleksikan setiap pengalaman klinis secara mendalam — bukan sekadar catatan harian.</p>
+            <div class="auth-dots-row">
+              <span class="auth-dot active"></span>
+              <span class="auth-dot"></span>
+              <span class="auth-dot"></span>
+            </div>
+            <button class="btn-slide-next-white" onclick="showAuthSlide(2)">
+              <span>Selanjutnya</span> <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Onboarding Slide 2 -->
+        <div id="auth-slide-2" class="auth-slide">
+          <div class="auth-slide-teal-bg">
+            <div class="auth-slide-top">
+              <img src="assets/images/logo.png" alt="Logo" class="auth-logo-white">
+              <button class="btn-skip-pill" onclick="showAuthSlide(3)">Lewati</button>
+            </div>
+            <div class="slide-dialog-bubbles-graphic">
+              <div class="bubble-q">Apa yang paling Anda pelajari?</div>
+              <div class="bubble-a">Saya belajar pentingnya mendengarkan pasien.</div>
+              <div class="bubble-q">Bagaimana itu mengubah pendekatan Anda?</div>
+            </div>
+            <h3 class="auth-slide-title">AI Guide Sebagai Teman Berpikir</h3>
+            <p class="auth-slide-desc">AI tidak menulis refleksi untuk Anda. Ia mengajukan pertanyaan yang tepat untuk membantu Anda menemukan insight sendiri — seperti mentor yang sabar.</p>
+            <div class="auth-dots-row">
+              <span class="auth-dot"></span>
+              <span class="auth-dot active"></span>
+              <span class="auth-dot"></span>
+            </div>
+            <button class="btn-slide-next-white" onclick="showAuthSlide(3)">
+              <span>Selanjutnya</span> <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Onboarding Slide 3 (Login / Register Choice) -->
+        <div id="auth-slide-3" class="auth-slide">
+          <div class="auth-slide-teal-bg">
+            <div class="auth-slide-top">
+              <img src="assets/images/logo.png" alt="Logo" class="auth-logo-white">
+            </div>
+            <div class="slide-bars-graphic">
+              <div class="bar-row"><span>Clinical Reasoning</span><strong>78%</strong></div>
+              <div class="bar-row"><span>Komunikasi</span><strong>85%</strong></div>
+              <div class="bar-row"><span>Profesionalisme</span><strong>92%</strong></div>
+              <div class="bar-row"><span>Empati</span><strong>70%</strong></div>
+            </div>
+            <h3 class="auth-slide-title">Pantau Pertumbuhan Kompetensi Anda</h3>
+            <p class="auth-slide-desc">Visualisasikan perkembangan refleksi dari waktu ke waktu. Identifikasi area kekuatan dan peluang tumbuh dalam perjalanan klinismu.</p>
+            <div class="auth-dots-row">
+              <span class="auth-dot"></span>
+              <span class="auth-dot"></span>
+              <span class="auth-dot active"></span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7); margin-bottom:10px;">
+              <i class="fa-solid fa-shield-halved"></i> Data terenkripsi · Sesuai UU PDP Indonesia
+            </div>
+            <div class="auth-choice-btns">
+              <button class="btn-slide-next-white" onclick="closeAuthModal(); switchBottomTab('beranda');">
+                <span>Masuk ke Akun</span> <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              <button class="btn-slide-outline-white" onclick="closeAuthModal(); openProfileModal();">
+                <span>Daftar Akun Baru</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MODAL 2: EDIT PROFIL MAHASISWA & API KEY -->
+  <!-- ============================================ -->
+  <div id="modal-profile" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-id-card"></i> Profil Mahasiswa &amp; Stase</h3>
+        <button class="close-btn" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nama Mahasiswa:</label>
+          <input type="text" id="cfg-student-name" value="Laurent Indra Febrian">
+        </div>
+        <div class="form-group">
+          <label>NIM / Stambuk:</label>
+          <input type="text" id="cfg-student-id" value="012024001">
+        </div>
+        <div class="form-group">
+          <label>Departemen / Stase Aktif:</label>
+          <select id="cfg-student-department">
+            <option value="Ilmu Penyakit Dalam" selected>Ilmu Penyakit Dalam</option>
+            <option value="Ilmu Kesehatan Anak (Pediatri)">Ilmu Kesehatan Anak (Pediatri)</option>
+            <option value="Ilmu Bedah">Ilmu Bedah</option>
+            <option value="Obstetri & Ginekologi (Obgyn)">Obstetri & Ginekologi (Obgyn)</option>
+            <option value="Neurologi">Neurologi</option>
+            <option value="Psikiatri / Kedokteran Jiwa">Psikiatri / Kedokteran Jiwa</option>
+            <option value="Anestesiologi & Terapi Intensif">Anestesiologi & Terapi Intensif</option>
+            <option value="Kardiologi">Kardiologi</option>
+            <option value="Instalasi Gawat Darurat (IGD)">Instalasi Gawat Darurat (IGD)</option>
+            <option value="Puskesmas / IKM">Puskesmas / IKM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Rumah Sakit Pendidikan / Wahana:</label>
+          <input type="text" id="cfg-student-hospital" value="RSUD Dr. Soetomo">
+        </div>
+        <div class="form-group">
+          <label>DPJP / Preseptor Pembimbing:</label>
+          <input type="text" id="cfg-student-supervisor" value="dr. Sp.PD, Subsp. (K)">
+        </div>
+        <div class="form-group">
+          <label>Google Gemini API Key (Opsional):</label>
+          <input type="password" id="cfg-gemini-key" placeholder="AIzaSy... (Kosongkan jika pakai mode offline)">
+          <small>Jika dikosongkan, aplikasi akan menggunakan Intelligent Scaffolding Engine bawaan.</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-save" onclick="saveProfileModal()">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MODAL 3: PRATINJAU & UNDUH PDF AKADEMIK -->
+  <!-- ============================================ -->
+  <div id="modal-pdf" class="modal-overlay" style="display:none;">
+    <div class="modal-card pdf-modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-pdf"></i> Pratinjau PDF Laporan Portofolio</h3>
+        <div class="modal-actions-right">
+          <button class="btn-download-pdf" onclick="downloadPdfNow()">
+            <i class="fa-solid fa-download"></i> Unduh PDF
+          </button>
+          <button class="btn-print-pdf" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Cetak
+          </button>
+          <button class="close-btn" onclick="closePdfModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      
+      <div class="modal-body pdf-preview-body">
+        <!-- RENDERED FORMAL PDF SHEET -->
+        <div id="pdf-printable-area" class="formal-pdf-sheet">
+          <div class="pdf-institution-header">
+            <div class="header-left">
+              <div class="pdf-badge">MEDIREFLECT AI · CLINICAL PORTFOLIO</div>
+              <h2 class="pdf-main-heading">LAPORAN REFLEKSI KLINIS MAHASISWA</h2>
+              <div class="pdf-sub-heading">Berdasarkan Kerangka Gibbs Reflective Cycle (1988) &amp; AMEE Guide No. 44 (Sandars, 2009)</div>
+            </div>
+            <div class="header-right">
+              <div class="pdf-meta-box">
+                <div><strong>Status:</strong> Dokumen Portofolio Resmi</div>
+                <div id="pdf-print-date">Tanggal: 22 Juni 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pdf-identity-grid">
+            <div class="id-col">
+              <div class="id-row"><span class="lbl">Nama Mahasiswa</span>: <span id="pdf-id-name">Laurent Indra Febrian</span></div>
+              <div class="id-row"><span class="lbl">NIM / Stambuk</span>: <span id="pdf-id-nim">012024001</span></div>
+              <div class="id-row"><span class="lbl">Stase / Departemen</span>: <span id="pdf-id-dept">Ilmu Penyakit Dalam</span></div>
+            </div>
+            <div class="id-col">
+              <div class="id-row"><span class="lbl">RS Pendidikan</span>: <span id="pdf-id-hospital">RSUD Dr. Soetomo</span></div>
+              <div class="id-row"><span class="lbl">DPJP / Preseptor</span>: <span id="pdf-id-supervisor">dr. Sp.PD, Subsp. (K)</span></div>
+              <div class="id-row"><span class="lbl">Tingkat Kedalaman</span>: <span id="pdf-id-depth">Analytical (Level 2)</span></div>
+            </div>
+          </div>
+
+          <div class="pdf-case-title-box">
+            <strong>Judul Kasus / Insiden:</strong> <span id="pdf-case-title">Gagal Pemasangan Kanula Infus pada Pasien Geriatri</span>
+          </div>
+
+          <div class="pdf-gibbs-section">
+            <div class="pdf-section-title">1. DESKRIPSI (DESCRIPTION) — Apa yang terjadi?</div>
+            <div class="pdf-section-content" id="pdf-desc-text">-</div>
+          </div>
+
+          <div class="pdf-gibbs-section">
+            <div class="pdf-section-title">2. PERASAAN (FEELINGS) — Apa yang dirasakan saat kejadian &amp; sesudahnya?</div>
+            <div class="pdf-section-content" id="pdf-feel-text">-</div>
+          </div>
+
+          <div class="pdf-gibbs-section">
+            <div class="pdf-section-title">3. EVALUASI (EVALUATION) — Apa aspek yang berjalan baik dan kurang baik?</div>
+            <div class="pdf-section-content" id="pdf-eval-text">-</div>
+          </div>
+
+          <div class="pdf-gibbs-section">
+            <div class="pdf-section-title">4. ANALISIS (ANALYSIS) — Mengapa hal itu terjadi? Kaitkan dengan teori &amp; faktor manusia</div>
+            <div class="pdf-section-content" id="pdf-analysis-text">-</div>
+          </div>
+
+          <div class="pdf-gibbs-section">
+            <div class="pdf-section-title">5. KESIMPULAN (CONCLUSION) — Apa pemahaman baru tentang diri sendiri &amp; situasi klinis?</div>
+            <div class="pdf-section-content" id="pdf-conclusion-text">-</div>
+          </div>
+
+          <div class="pdf-gibbs-section">
+            <div class="pdf-section-title">6. RENCANA TINDAKAN (ACTION PLAN) — Apa komitmen nyata di rotasi berikutnya?</div>
+            <div class="pdf-section-content" id="pdf-action-text">-</div>
+          </div>
+
+          <div class="pdf-smart-table-wrapper">
+            <div class="pdf-table-header">KOMITMEN RENCANA AKSI (SMART ACTION CRITERIA - SLIDE 19):</div>
+            <table class="pdf-smart-table">
+              <tr><td class="col-crit">S - Specific (Spesifik)</td><td id="pdf-smart-s">-</td></tr>
+              <tr><td class="col-crit">M - Measurable (Terukur)</td><td id="pdf-smart-m">-</td></tr>
+              <tr><td class="col-crit">A - Achievable (Dapat Dicapai)</td><td id="pdf-smart-a">-</td></tr>
+              <tr><td class="col-crit">R - Relevant (Relevan)</td><td id="pdf-smart-r">-</td></tr>
+              <tr><td class="col-crit">T - Time-bound (Batas Waktu)</td><td id="pdf-smart-t">-</td></tr>
+            </table>
+          </div>
+
+          <div class="pdf-signature-block">
+            <div class="sig-col">
+              <div>Mahasiswa Kedokteran,</div>
+              <div class="sig-space"></div>
+              <div class="sig-name" id="pdf-sig-student">(Laurent Indra Febrian)</div>
+              <div class="sig-sub" id="pdf-sig-nim">NIM: 012024001</div>
+            </div>
+            <div class="sig-col">
+              <div>Mengetahui / Verifikasi DPJP,</div>
+              <div class="sig-space"></div>
+              <div class="sig-name" id="pdf-sig-supervisor">(dr. Sp.PD, Subsp. (K))</div>
+              <div class="sig-sub">NIP / SIP: ...........................................</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MODAL: STUDIO PELATIHAN & KALIBRASI AI -->
+  <!-- ============================================ -->
+  <div id="modal-ai-training" class="modal-backdrop" style="display:none;">
+    <div class="modal-box training-studio-modal">
+      <div class="modal-header-teal">
+        <div class="modal-title-wrap">
+          <div class="modal-badge-top"><i class="fa-solid fa-graduation-cap"></i> Mode Edukator &amp; Riset Kedokteran</div>
+          <h3><i class="fa-solid fa-sliders"></i> Studio Pelatihan &amp; Kalibrasi AI</h3>
+          <p>Kalibrasi persona mentor AMEE Guide 44, bank kasus teladan (few-shot), dan fine-tuning Gemini</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeAiTrainingModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Studio Sub-Navigation Bar -->
+      <div class="studio-tab-bar">
+        <button id="btn-tab-persona" class="studio-tab-btn active" onclick="switchTrainingTab('persona')">
+          <i class="fa-solid fa-sliders"></i> Persona &amp; Kalibrasi
+        </button>
+        <button id="btn-tab-exemplars" class="studio-tab-btn" onclick="switchTrainingTab('exemplars')">
+          <i class="fa-solid fa-book-medical"></i> Bank Kasus (Exemplars) <span class="tab-count-badge" id="badge-exemplar-count">4</span>
+        </button>
+        <button id="btn-tab-playground" class="studio-tab-btn" onclick="switchTrainingTab('playground')">
+          <i class="fa-solid fa-flask"></i> Playground Uji Model
+        </button>
+        <button id="btn-tab-export" class="studio-tab-btn" onclick="switchTrainingTab('export')">
+          <i class="fa-solid fa-file-code"></i> Ekspor JSONL
+        </button>
+      </div>
+
+      <!-- Studio Modal Body -->
+      <div class="studio-modal-body">
+        
+        <!-- PANE 1: PERSONA & KALIBRASI -->
+        <div id="pane-persona" class="studio-pane active">
+          <div class="pedagogy-alert-box">
+            <i class="fa-solid fa-brain"></i>
+            <div>
+              <strong>Prinsip "Supportive Challenge" (AMEE Guide No. 44)</strong>
+              <p>Kalibrasikan parameter berikut agar AI dapat menantang asumsi mahasiswa dengan penuh kehangatan, tanpa memicu kecemasan ujian (<em>Zero Assessment Tension</em>).</p>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="preset-row">
+            <span class="preset-label">Preset Cepat:</span>
+            <button class="preset-btn" onclick="applyPersonaPreset('empathy')"><i class="fa-solid fa-heart"></i> Paliatif / Empatik Tinggi</button>
+            <button class="preset-btn" onclick="applyPersonaPreset('socratic')"><i class="fa-solid fa-lightbulb"></i> Bedah / Sokratik Kritis</button>
+            <button class="preset-btn" onclick="applyPersonaPreset('standard')"><i class="fa-solid fa-balance-scale"></i> Standar AMEE 44</button>
+          </div>
+
+          <!-- Slider 1: Empati -->
+          <div class="slider-group-card">
+            <div class="slider-header-row">
+              <label><i class="fa-solid fa-heart"></i> Skala Empati &amp; Validasi Emosi Mahasiswa</label>
+              <span class="slider-value-pill" id="val-empathy">4.5 / 5.0</span>
+            </div>
+            <input type="range" min="1.0" max="5.0" step="0.1" value="4.5" id="cfg-slider-empathy" class="studio-range" oninput="updateTrainingSlider('empathy', this.value)">
+            <div class="slider-legend-row">
+              <span>Objektif &amp; Dingin (1.0)</span>
+              <span>Sangat Empatik &amp; Hangat (5.0)</span>
+            </div>
+            <div class="slider-desc-box" id="desc-empathy">
+              ✨ <strong>Sangat Hangat:</strong> Memprioritaskan penenteraman emosi sebelum masuk ke telaah objektif kasus.
+            </div>
+          </div>
+
+          <!-- Slider 2: Socratic Challenge -->
+          <div class="slider-group-card">
+            <div class="slider-header-row">
+              <label><i class="fa-solid fa-comments"></i> Intensitas Tantangan Sokratik (Socratic Probing)</label>
+              <span class="slider-value-pill" id="val-socratic">4.0 / 5.0</span>
+            </div>
+            <input type="range" min="1.0" max="5.0" step="0.1" value="4.0" id="cfg-slider-socratic" class="studio-range" oninput="updateTrainingSlider('socratic', this.value)">
+            <div class="slider-legend-row">
+              <span>Menyetujui / Pasif (1.0)</span>
+              <span>Kritis Menantang Asumsi (5.0)</span>
+            </div>
+            <div class="slider-desc-box" id="desc-socratic">
+              💡 <strong>Socratic Probing Mendalam:</strong> Menggali mental model implisit mahasiswa lewat pertanyaan reflektif bertingkat.
+            </div>
+          </div>
+
+          <!-- Slider 3: Gibbs Scaffolding -->
+          <div class="slider-group-card">
+            <div class="slider-header-row">
+              <label><i class="fa-solid fa-arrows-spin"></i> Ketertiban Struktur Siklus Gibbs 6 Fase</label>
+              <span class="slider-value-pill" id="val-gibbs">4.2 / 5.0</span>
+            </div>
+            <input type="range" min="1.0" max="5.0" step="0.1" value="4.2" id="cfg-slider-gibbs" class="studio-range" oninput="updateTrainingSlider('gibbs', this.value)">
+            <div class="slider-legend-row">
+              <span>Fleksibel Curhat Bebas (1.0)</span>
+              <span>Ketat 6-Tahap &amp; SMART (5.0)</span>
+            </div>
+            <div class="slider-desc-box" id="desc-gibbs">
+              📘 <strong>Sangat Terstruktur:</strong> Memandu teratur dari Deskripsi hingga Rencana Tindakan SMART.
+            </div>
+          </div>
+
+          <!-- Toggles -->
+          <div class="studio-toggles-card">
+            <div class="toggle-row-item">
+              <div>
+                <strong>Redam "Assessment Tension"</strong>
+                <p>AI secara eksplisit menegaskan percakapan ini murni pembelajaran formatif, bukan penilaian ujian.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfg-check-tension" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row-item" style="border-top:1px solid #e2e8f0; padding-top:10px; margin-top:10px;">
+              <div>
+                <strong>Anjuran Literatur EBM &amp; Etika Medis</strong>
+                <p>AI memberikan rujukan jurnal atau pedoman klinis terkait kasus untuk memicu belajar mandiri.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfg-check-literature" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-top:18px; text-align:right;">
+            <button class="primary-action-btn" onclick="saveTrainingCalibration()">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Kalibrasi ke AI
+            </button>
+          </div>
+        </div>
+
+        <!-- PANE 2: BANK KASUS TELADAN (FEW-SHOT) -->
+        <div id="pane-exemplars" class="studio-pane">
+          <div class="exemplars-header-row">
+            <div>
+              <h4 style="margin:0; font-size:14px; font-weight:700; color:#0A5C67;">Bank Contoh Kasus Klinis (Few-Shot Exemplars)</h4>
+              <p style="margin:2px 0 0; font-size:12px; color:#64748b;">Pasangan curhat mahasiswa &amp; respon ideal mentor yang diinjeksi ke dalam memori AI</p>
+            </div>
+            <button class="add-exemplar-btn" onclick="openAddExemplarModal()">
+              <i class="fa-solid fa-plus"></i> Tambah Kasus Baru
+            </button>
+          </div>
+
+          <div id="training-exemplars-container" class="exemplars-card-list">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+
+        <!-- PANE 3: PLAYGROUND UJI MODEL -->
+        <div id="pane-playground" class="studio-pane">
+          <div class="playground-control-card">
+            <div class="playground-top-bar">
+              <label style="font-weight:700; font-size:13px; color:#0A5C67;"><i class="fa-solid fa-flask"></i> Uji Coba Respon Model Terkalibrasi</label>
+              <div class="dept-select-wrap">
+                <span style="font-size:11.5px; color:#64748b; margin-right:6px;">Konteks Stase:</span>
+                <select id="playground-dept-select" class="form-input" style="width:auto; padding:4px 8px; font-size:12px;">
+                  <option value="Ilmu Bedah">Ilmu Bedah</option>
+                  <option value="Ilmu Penyakit Dalam">Ilmu Penyakit Dalam</option>
+                  <option value="Ilmu Kesehatan Anak">Ilmu Kesehatan Anak</option>
+                  <option value="IGD &amp; Emergensi">IGD &amp; Emergensi</option>
+                  <option value="Obstetri &amp; Ginekologi">Obstetri &amp; Ginekologi</option>
+                </select>
+              </div>
+            </div>
+            <textarea id="playground-input-text" class="form-input" rows="4" style="margin-top:10px; font-size:12.5px;" placeholder="Tuliskan kalimat curhat atau dilema klinis koas untuk menguji model...">Dok, tadi di bangsal bedah saya ditegur residen senior di depan suster karena hasil lab elektrolit pasien belum saya catat di status. Saya merasa malu dan ga konsentrasi jaga.</textarea>
+            <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; color:#64748b;"><i class="fa-solid fa-bolt"></i> Menggunakan bobot kalibrasi &amp; few-shot aktif</span>
+              <button class="primary-action-btn" id="btn-run-playground" onclick="runPlaygroundSimulation()">
+                <i class="fa-solid fa-play"></i> Uji Respon Model
+              </button>
+            </div>
+          </div>
+
+          <!-- Hasil Uji Coba -->
+          <div id="playground-result-container" style="display:none; margin-top:16px;">
+            <div class="playground-result-card">
+              <div class="result-card-header">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <img src="assets/images/logo.png" alt="Logo" style="width:22px; height:22px; object-fit:contain;">
+                  <strong style="color:#0A5C67; font-size:13px;">Respon AI Mentor Terkalibrasi</strong>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  <span class="depth-badge" id="play-depth-badge">Analytical</span>
+                  <span class="score-badge" id="play-score-badge">92% Match</span>
+                </div>
+              </div>
+              <div class="result-card-body" id="play-response-body">
+                <!-- Response inserted here -->
+              </div>
+              <div class="result-card-footer">
+                <span id="play-phase-badge"><i class="fa-solid fa-diagram-project"></i> Fase Gibbs: Feelings &amp; Evaluation</span>
+                <span style="color:#0f766e; font-weight:600;"><i class="fa-solid fa-check-double"></i> AMEE Guide 44 Validated</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 4: EKSPOR JSONL -->
+        <div id="pane-export" class="studio-pane">
+          <div class="pedagogy-alert-box" style="background:#f8fafc; border-color:#cbd5e1;">
+            <i class="fa-solid fa-code" style="color:#0A5C67;"></i>
+            <div>
+              <strong>Dataset Fine-Tuning Google Gemini &amp; OpenAI (.JSONL)</strong>
+              <p>Dataset di bawah ini digenerate otomatis dari konfigurasi persona dan bank kasus klinis Anda. Siap diunggah ke <strong>Google AI Studio</strong> atau <strong>Vertex AI</strong> untuk melatih model mandiri.</p>
+            </div>
+          </div>
+
+          <div class="jsonl-code-wrapper">
+            <div class="code-top-bar">
+              <span><i class="fa-regular fa-file-lines"></i> medireflect_finetuning_dataset.jsonl</span>
+              <span id="jsonl-row-count-badge" style="font-size:11px; opacity:0.8;">4 baris dataset</span>
+            </div>
+            <pre class="jsonl-code-display" id="jsonl-code-preview"></pre>
+          </div>
+
+          <div class="export-actions-row">
+            <button class="secondary-btn" onclick="copyJsonlDataset()">
+              <i class="fa-regular fa-copy"></i> Salin JSONL ke Clipboard
+            </button>
+            <button class="primary-action-btn" onclick="downloadJsonlDataset()">
+              <i class="fa-solid fa-download"></i> Unduh File medireflect_dataset.jsonl
+            </button>
+          </div>
+
+          <div class="cloud-guide-banner">
+            <i class="fa-brands fa-google" style="font-size:22px; color:#4285F4;"></i>
+            <div>
+              <strong>Ingin Melatih Model di Cloud Google secara Gratis?</strong>
+              <p>Buka <a href="https://aistudio.google.com/" target="_blank" style="color:#0A5C67; font-weight:700; text-decoration:underline;">Google AI Studio</a> ➔ Tuned Models ➔ Upload file JSONL di atas. Panduan lengkap tersedia di <code>training/PANDUAN_TRAINING_AI.md</code>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB-MODAL: TAMBAH KASUS TELADAN (EXEMPLAR) -->
+  <div id="modal-add-exemplar" class="modal-backdrop" style="display:none; z-index:1100;">
+    <div class="modal-box" style="max-width:540px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-plus-circle"></i> Tambah Kasus Teladan Baru</h3>
+        <button class="modal-close-btn" onclick="closeAddExemplarModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body-scrollable">
+        <div class="form-group">
+          <label>Judul Kasus</label>
+          <input type="text" id="new-ex-title" class="form-input" placeholder="misal: Komplain Pasien di Triase IGD">
+        </div>
+        <div class="form-group">
+          <label>Departemen / Stase</label>
+          <input type="text" id="new-ex-dept" class="form-input" placeholder="misal: Ilmu Penyakit Dalam / IGD">
+        </div>
+        <div class="form-group">
+          <label>Kronologi Kasus Singkat</label>
+          <textarea id="new-ex-scenario" class="form-input" rows="2" placeholder="Latar belakang insiden klinis..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Contoh Curhat / Kalimat Mahasiswa</label>
+          <textarea id="new-ex-student" class="form-input" rows="3" placeholder="Tuliskan keluhan atau emosi mahasiswa..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Respons Ideal Mentor (Standar AMEE Guide 44 &amp; Gibbs)</label>
+          <textarea id="new-ex-mentor" class="form-input" rows="3" placeholder="Tuliskan respons mentor yang empatik & menantang secara suportif..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Target Fase Siklus Gibbs</label>
+          <select id="new-ex-phase" class="form-input">
+            <option value="Description">Fase 1: Deskripsi</option>
+            <option value="Feelings & Analysis" selected>Fase 2 & 4: Perasaan & Analisis</option>
+            <option value="Evaluation">Fase 3: Evaluasi</option>
+            <option value="Action Plan">Fase 6: Rencana Tindakan (SMART)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="secondary-btn" onclick="closeAddExemplarModal()">Batal</button>
+        <button class="primary-action-btn" onclick="saveNewExemplar()"><i class="fa-solid fa-check"></i> Simpan Kasus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast-notification">Teks berhasil disalin!</div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
