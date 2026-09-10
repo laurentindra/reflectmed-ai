@@ -67,12 +67,17 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.asset(
-                              'assets/images/logo.png',
-                              height: 28,
-                              color: Colors.white,
-                              errorBuilder: (_, __, ___) => const Text(
-                                'Medireflect AI',
-                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
+                              'assets/images/logoo.png',
+                              height: 32,
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) => Image.asset(
+                                'assets/images/logo.png',
+                                height: 32,
+                                fit: BoxFit.contain,
+                                errorBuilder: (_, __, ___) => const Text(
+                                  'ReflectMed AI',
+                                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
+                                ),
                               ),
                             ),
                             Container(

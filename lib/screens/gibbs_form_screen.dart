@@ -127,9 +127,15 @@ class _GibbsFormScreenState extends State<GibbsFormScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const SizedBox(width: 32),
-                      const Text(
-                        'Medireflect AI',
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
+                      Image.asset(
+                        'assets/images/logoo.png',
+                        height: 24,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => Image.asset(
+                          'assets/images/logo.png',
+                          height: 24,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),

@@ -164,7 +164,17 @@ class _ReflectiveChatScreenState extends State<ReflectiveChatScreen> {
                       const SizedBox(width: 32),
                       Row(
                         children: [
-                          Image.asset('assets/images/logo.png', height: 22, color: Colors.white, errorBuilder: (_, __, ___) => const Icon(Icons.psychology, color: Colors.white)),
+                          Image.asset(
+                            'assets/images/logoo.png',
+                            height: 22,
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, __, ___) => Image.asset(
+                              'assets/images/logo.png',
+                              height: 22,
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) => const Icon(Icons.psychology, color: Colors.white),
+                            ),
+                          ),
                           const SizedBox(width: 8),
                           const Text('AI Guide · Aktif', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
                         ],
